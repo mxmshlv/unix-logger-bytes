@@ -4,7 +4,7 @@
 prevent_function() {
 
     # Lock file path
-    LOCK_FILE="/apps/dccs/LOGGERTEST/logger_script.pid"
+    LOCK_FILE="/PATH/TO/logger_script.pid"
 
     # Check if another instance of the script is running
     if [ -f "$LOCK_FILE" ]; then
@@ -32,17 +32,17 @@ prevent_function() {
 prevent_function
 
 # Store LOG_FILE variable and get its size
-LOG_FILE=$(find /apps/dccs/LOGGERTEST/ -type f -name 'testlo*' -print | xargs ls -ltr | tail -n 1 | awk '{print $9}')
+LOG_FILE=$(find /PATH/TO/LOG/DIRECTORY -type f -name 'LOGFILENAME*' -print | xargs ls -ltr | tail -n 1 | awk '{print $9}')
 old_size=$(wc -c <"$LOG_FILE")
 
 # Adding the tag to logger messages
-APP_NAME="TESTLOG_TAG"
+APP_NAME="SOME_TAG"
 
 # Main checking and logger function
 main_function() {
 
     # Get the latest log file and store another NEW_LOG_FILE variable
-    NEW_LOG_FILE=$(find /apps/dccs/LOGGERTEST/ -type f -name 'testlo*' -print | xargs ls -ltr | tail -n 1 | awk '{print $9}')
+    NEW_LOG_FILE=$(find /PATH/TO/LOG/DIRECTORY -type f -name 'LOGFILENAME*' -print | xargs ls -ltr | tail -n 1 | awk '{print $9}')
 
     if [ "$NEW_LOG_FILE" = "$LOG_FILE" ]; then
         # Get the current size of the log file
